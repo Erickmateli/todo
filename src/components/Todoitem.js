@@ -22,6 +22,7 @@ const child = {
   };
 
 const Todoitem = ({ todo }) => {
+  
   const dispach = useDispatch();
 
   //set the state for the modal to open on edit
