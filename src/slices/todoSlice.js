@@ -7,6 +7,7 @@ const getInitialTodo = () =>{
     if(localTodoList){
         return JSON.parse(localTodoList)
     }
+    //else pass an empty array
     window.localStorage.setItem('todoList',JSON.stringify([]));
     return []
 }
@@ -22,13 +23,20 @@ export const todoSlice = createSlice({
     initialState: initialValue,
     reducers: {
         addTodo: (state,action) =>{
+            //update the new state with todo by pushing it to an array with the payload at the action
             state.todoList.push(action.payload);
+
+            //change the contents in the local storage get the item and check if it exists then update it
             const todoList = window.localStorage.getItem('todoList');
+           
             if(todoList){
+                //convert it to an array/object
                 const todoListArr = JSON.parse(todoList);
                 todoListArr.push({
+                    //spreads our items with the new todos
                     ...action.payload,
                 });
+                //update the local storage
                 window.localStorage.setItem('todoList',JSON.stringify(todoListArr));
             }else{
                 window.localStorage.setItem(
@@ -41,6 +49,7 @@ export const todoSlice = createSlice({
             //get all the items from the local storage
             const todoList = window.localStorage.getItem('todoList');
             //check if the list exists and parse it as an array
+            
             if(todoList){
                 const todoListArr = JSON.parse(todoList);
                 //check which item you want to delete by looping through and pass the id- from the payload

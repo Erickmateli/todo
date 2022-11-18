@@ -16,6 +16,9 @@ const TodoModal = ({type, modalOpen, setModalOpen ,todo}) => {
  
   const [status, setStatus] = useState("incomplete");
 
+  //date state
+  const [dueDate, setDueDate] = useState("");
+
   const dispach = useDispatch();
 
   //autofill the form on update for this use UseEffect hook
@@ -34,14 +37,16 @@ useEffect(() => {
   const handleSubmit = (e) =>{
    
     e.preventDefault();
-    // console.log(title,dueDate,status);
+    //console.log(dueDate);
+
+    //check if we have the title and status filled.
     if(title  &&  status){
         if(type==='add'){
             dispach(addTodo({
                 id: uuid(),
                 title, 
                 status,
-                time: new Date().toLocaleString()
+                time: new Date(dueDate).toLocaleString()
             }))
             toast.success('Task added succefuly');
         }
@@ -57,7 +62,9 @@ useEffect(() => {
                 ))
                 toast.success('Task updated succefuly');
             }else{
-                toast.error('No changes made')
+                toast.error('No changes made');
+                //make the modal remain when no changes are not made
+                return;
             }
         }
         setModalOpen(false)
@@ -88,6 +95,15 @@ useEffect(() => {
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
+                />
+              </label>
+              <label htmlFor="duedate">
+                Due Date
+                <input 
+                type="datetime-local"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value) }
+                id="duedate"
                 />
               </label>
               

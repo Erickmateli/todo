@@ -62,6 +62,12 @@ const Todoitem = ({ todo }) => {
     setupdateModalOpen(true);
   };
 
+  //handle due date color
+
+  const handleDueDate = () => {
+
+  }
+
  
   return (
     <>
@@ -82,7 +88,7 @@ const Todoitem = ({ todo }) => {
                 todo.status === "complete" && Style["todoText--completed"],
               ])}
             >
-              {todo.title}
+             <span style={{color: new Date() >  new Date(todo.time) ? "red" : "grey"}}> {todo.title}</span>
             </p>
             <p className={Style.time}>
               Due :  {todo.time}

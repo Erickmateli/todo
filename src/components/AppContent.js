@@ -26,7 +26,7 @@ const AppContent = () => {
   const todoList = useSelector((state) => state.todo.todoList);
   //make a copy of the todolist sort according to do time
   const sortedToDolist = [...todoList];
-  sortedToDolist.sort((a, b) => new Date(b.time) - new Date(a.time));
+  sortedToDolist.sort((a, b) => new Date(a.time) - new Date(b.time));
   return (
     <motion.div variants={container} initial="hidden" animate="visible" data-testid="appcontent" >
       {sortedToDolist && sortedToDolist.length > 0 ? (
